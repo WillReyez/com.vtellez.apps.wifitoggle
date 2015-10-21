@@ -11,13 +11,32 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
- * Implementation of App Widget functionality.
+ * This app widget is used to manage the status of the device wifi. This is a simple widget which
+ * set ON/OFF the wifi depending of the current state. This widget provider send intents with the
+ * different actions and the ConnectivityReceiver, broadcast receiver, gets the action and set the
+ * new status updating the views.
+ *
+ * Created by victorm.tellez on 15/09/2015.
  */
 public class WifiToggleWidget extends AppWidgetProvider {
-
+    /**
+     * Constant used in the logs.
+     */
     public static final String WIDGET_TAG = "Toggle wifi";
+
+    /**
+     * Constant used to sending and getting the correct intents.
+     */
     public static final String ACTION_WIDGET_WIFI = "ActionReceiverWifi";
 
+    /**
+     * Handles the on update of the App widget provider. This method send the intents and update
+     * the views in order to show the new state to the user as soon as possible.
+     *
+     * @param context               of the application
+     * @param appWidgetManager      used to manage the widget
+     * @param appWidgetIds          the ids to get the id of the current widget
+     */
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
@@ -49,6 +68,11 @@ public class WifiToggleWidget extends AppWidgetProvider {
         }
     }
 
+    /**
+     * Updates the views with the current status of the wifi.
+     *
+     * @param context   of the application
+     */
     public void updateViews(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
